@@ -1,48 +1,94 @@
 # Delivery Performance Analysis
-## Executive Summary: Improving Logistics and Seller Reliability
-This analysis provides a granular evaluation of seller delivery performance on the Olist e-commerce marketplace. By segmenting performance into Reliability Risk (late shipment frequency) and Operational Impact (total volume of late shipments), this project identifies the specific accounts driving logistical inefficiencies. The findings isolate a critical segment, the bottom 5% of sellers responsible for 30% of all late deliveries. Implementing targeted remediation for these high impact accounts offers a direct pathway to improving customer satisfaction (CSAT) scores, reducing logistics overhead, and stabilising the supply chain.
+**Identifying the high-risk sellers driving 30% of late deliveries on the Olist e-commerce platform**
+
+![SQL](https://img.shields.io/badge/SQL-blue) ![Excel](https://img.shields.io/badge/Excel-green) ![Domain: Logistics](https://img.shields.io/badge/Domain-Logistics-orange)
+
+---
+
+## The Problem
+
+Olist's logistics team had no systematic way to distinguish sellers who occasionally miss deadlines from those who are structurally unreliable. Without that distinction, any intervention would be blanket costly and inefficient.
+
+This analysis builds a framework to surface both failure types by separating **reliability risk** (how often a seller ships late) from **operational impact** (how many total late orders they generate), so remediation can be targeted to where it matters most.
+
+**Key finding:** The bottom 5% of sellers are responsible for 30% of all late deliveries.
+
+---
 
 ## Business Questions
-Which sellers most frequently miss their shipping deadlines?
 
-Which sellers generate the largest number of late shipments overall?
+- Which sellers most frequently miss their shipping deadlines?
+- Which sellers generate the largest volume of late shipments overall?
+- Are poor performers consistently late, or affected by occasional disruptions?
+- When a seller ships late, how severe are those delays on average?
 
-Are poor performers consistently late, or affected by occasional delays?
+---
 
-When sellers ship late, how severe are those delays on average?
+## Dataset
 
-## My Approach: Clarity and Actionable Insights
-To ensure these findings were accurate and ready for leadership review, I focused on three pillars.
+- **Source:** [Olist Brazilian E-Commerce Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) (public, Kaggle)
+- **Scope:** ~100,000 orders, 2016–2018
+- **Focus:** Sellers with 50+ orders (to ensure statistically meaningful patterns)
 
-Data Integrity and Accuracy: I designed the analysis to count orders, not just individual products. This ensures that the performance scores are a true reflection of the customer experience, preventing single large orders from distorting the results.
+---
 
-Meaningful Comparisons:  I intentionally excluded "noisy" data, specifically sellers with fewer than 50 orders, to focus on statistically significant trends. This ensures that when we discuss a seller’s performance, we are looking at a clear, proven pattern of behaviour, not an occasional outlier.
+## Analytical Approach
 
-Operational Scalability: This analysis is built as a repeatable framework. Whether we are monitoring 100 sellers or 10,000, this methodology can be automated to provide real time dashboards, allowing team leads to catch delivery issues before they result in negative customer reviews.
+### 1. Counted orders, not products
+Each customer experience counts once. This prevents large multi-item orders from inflating a seller's late shipment rate and ensures performance scores reflect reality.
 
-## Metrics Used
-Total Orders: Number of orders handled by each seller.
+### 2. Excluded low-volume sellers (<50 orders)
+Removes statistical noise from accounts without enough data to draw conclusions. When we flag a seller's performance, it reflects a consistent, proven pattern not a run of bad luck.
 
-Late Orders: Number of orders where the seller shipped after the shipping limit date.
+### 3. Dual-axis segmentation
+Splitting sellers across rate and volume identifies two structurally different problem types chronic underperformers vs. high-volume sellers with occasional breakdowns each requiring a different response.
 
-Late Shipment Rate (%): Proportion of a seller’s orders shipped late.
+### 4. Built as a repeatable framework
+The methodology scales to any seller count and can be automated into a real-time dashboard, shifting the team from reactive crisis management to proactive quality control.
 
-Average Delay (days): Average number of days late, calculated only for late shipments.
+---
 
-## Strategic Recommendations
-Based on the analysis, I have identified three actionable levers to improve overall delivery performance.
+## Metrics
 
-Target High Impact Offenders First: We should prioritise remediation for sellers who appear in the top 10 for both late shipment rate and total late shipment volume. These sellers cause the greatest friction for the logistics team and the highest dissatisfaction for customers.
+| Metric | Definition |
+|---|---|
+| Total Orders | Number of orders handled by each seller |
+| Late Orders | Orders shipped after the shipping limit date |
+| Late Shipment Rate (%) | Proportion of a seller's orders shipped late |
+| Average Delay (days) | Mean days late, calculated only across late shipments |
 
-Segmented Support Programmes: Not all delays are the same. We should implement a programme for sellers with high late rates, focusing on better inventory planning. For high volume sellers with occasional delays, we should focus on optimising their specific dispatch processes.
+---
 
-Automated Performance Monitoring: The metrics developed in this project should be integrated into a live dashboard. By setting automated alerts for any seller who exceeds a 5% late rate, management can intervene before small delays become systemic failures, effectively shifting the strategy from reactive crisis management to proactive quality control.
+## Key Findings
 
-## Files Included
-seller_delivery_performance.sql: The SQL logic used to calculate seller level delivery metrics.
+- The **bottom 5% of sellers** account for **30% of all late deliveries**
+- A distinct segment of sellers shows both a high late rate **and** high late volume these are the highest-priority accounts for intervention
+- Late shipment patterns are not evenly distributed; a small cohort of chronic offenders drives outsized customer dissatisfaction
 
-seller_delivery_performance.xlsx: The final tables and charts used in the analysis.
+---
 
-seller_late_rate_vs_impact.png: The side by side visual comparison of seller risk versus impact.
+## Recommendations
 
-#### This project focuses on clear, explainable measures suitable for operational decision making and long term growth.
+**1. Prioritise dual-risk sellers first**
+Sellers appearing in the top 10 for both late shipment rate and total late volume cause the greatest combined friction. Targeting this segment first delivers the highest return on remediation effort.
+
+**2. Deploy segmented support, not blanket policy**
+- High late-rate sellers → inventory planning and lead time support
+- High-volume sellers with occasional delays → dispatch process optimisation
+
+**3. Automate monitoring at a 5% threshold**
+Integrating these metrics into a live dashboard with alerts for any seller exceeding a 5% late rate shifts strategy from reactive crisis response to proactive quality control.
+
+---
+
+## Files
+
+| File | Description |
+|---|---|
+| `seller_delivery_performance.sql` | Full query logic for calculating seller-level delivery metrics |
+| `seller_delivery_performance.xlsx` | Final tables and charts used in the analysis |
+| `seller_late_rate_vs_impact.png` | Side-by-side visual: reliability risk vs. operational impact |
+
+## Skills Demonstrated
+
+`SQL` `Data cleaning` `Metric design` `Segmentation analysis` `Business communication` `Operational recommendation`
